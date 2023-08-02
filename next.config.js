@@ -3,5 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 }
+const withTM = require('next-transpile-modules')(['xlsx']);
 
-module.exports = nextConfig
+module.exports = nextConfig, withTM()
