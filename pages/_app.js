@@ -1,11 +1,17 @@
 import '../styles/globals.css'
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { createWrapper } from 'next-redux-wrapper';
+import store from '../store/store';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component,  ...rest }) {
+  const {store, props} = wrapper.useWrappedStore(rest);
   return (
-      <Component {...pageProps} />
-
-  )
+    <Provider store={store}>
+      <Component {...props.pageProps} />
+    </Provider>
+  );
 }
 
-export default MyApp
+const wrapper = createWrapper(() => store);
+
+export default MyApp;

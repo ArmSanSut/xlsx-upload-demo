@@ -1,36 +1,20 @@
-import Reat, {useState, useEffect} from 'react';
-import axios from 'axios';
-import * as XLSX from 'xlsx';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchData } from '../actions/excelActions'
+import { useSelector } from 'react-redux';
+import { selectExcelData } from '../selectors/excelSelectors'; // Import your selector function
 
 
 export default function Home() {
 
-  const [data, setData] = useState([]);
-  const [category, setCategory] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-      const fetchAndReadXLSX = async () => {
-  
-        try {
-          const response = await fetch('/assets/ProductCatalogue.xlsx');
-          const data = await response.arrayBuffer();
-          const workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
+    dispatch(fetchData());
+  }, [dispatch]);
 
-          console.log('workbook', workbook)
-
-          const sheetName = workbook.SheetNames[0];
-          const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-         
-          setData(sheetData);
-          setCategory(workbook.Sheets)
-        } catch (error) {
-          console.error('Error reading XLSX file:', error.message);
-        }
-      };
-  
-      fetchAndReadXLSX();
-  }, []);
-  console.log('data',data)
+  const excelData = useSelector(selectExcelData);
+  console.log('excelData : ', excelData)
 
   return (
     <div>
