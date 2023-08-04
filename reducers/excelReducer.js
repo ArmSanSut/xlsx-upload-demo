@@ -1,5 +1,5 @@
 const initialState = {
-    catalogues: null,
+    catalogues: [],
 };
 
 const excelReducer = (state = initialState, action) => {
