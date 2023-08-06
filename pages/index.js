@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectExcelData } from '../selectors/excelSelectors'; // Import your selector function
 import { selectpagination } from '../selectors/paginationSelectors';
 import { setSelectedCategory, setProductTotal } from '../actions/paginationActions';
+import  Router  from 'next/router';
 
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
     dispatch(setSelectedCategory(categoryName));
     dispatch(setProductTotal(Math.ceil(allProducts / 9)));
   };
+  const postUrl = `/product/${selectedCategory}`;
 
   return (
     <div>
@@ -42,11 +44,13 @@ export default function Home() {
       {excelData.catalogues.length != 0 ?
         <div>
           {excelData.catalogues.map((item) => (
-            <Link href='/product'>
-              <button key={item.name} onClick={() => handleState(item)}>
+              <button key={item.name} onClick={() => 
+              Router.push({
+                        pathname:"/product",
+                        query:{catname:item.name}
+                      })}>
                 {item.name}
               </button>
-            </Link>
           ))}
         </div> : null}
     </div>
