@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {useRouter} from 'next/router';
 import { selectExcelData } from '../selectors/excelSelectors'; // Import your selector function
+import PaginationComponent from '../src/components/PaginationComponent';
 
 function ProductPage() {
 
@@ -18,6 +19,7 @@ function ProductPage() {
   return (
     <>
       <div>This is Product Page for {catalogName}</div>
+      <PaginationComponent />
     </>
   )
 }

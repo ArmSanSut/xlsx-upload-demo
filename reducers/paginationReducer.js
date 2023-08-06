@@ -1,8 +1,9 @@
 const initialState = {
     selectedCategory: '',
-    productTotal: '',
+    productTotal: 0,
     currentPage: 1,
-    itemsPerPage: 9,
+    pageSize: 9,
+    totalItems: 0,
 };
 
 
@@ -14,8 +15,10 @@ const paginationReducer = (state = initialState, action) => {
             return { ...state, productTotal: action.payload };
         case 'SET_CURRENT_PAGE':
             return { ...state, currentPage: action.payload };
-        case 'SET_ITEMS_PER_PAGE':
-            return { ...state, itemsPerPage: action.payload };
+        case 'SET_PAGE_SIZE':
+            return { ...state, pageSize: action.payload };
+        case 'SET_TOTAL_ITEMS':
+            return { ...state, totalItems: action.payload };
         default:
             return state;
     }
