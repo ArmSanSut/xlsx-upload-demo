@@ -13,7 +13,12 @@ export const setCurrentPage = (currentPage) => ({
     payload: currentPage,
 });
 
-export const setItemsPerPage = (itemsPerPage) => ({
-    type: 'SET_ITEMS_PER_PAGE',
-    payload: itemsPerPage,
+export const setPageSize = (pageSize) => ({
+    type: 'SET_PAGE_SIZE',
+    payload: pageSize,
+});
+
+export const setTotalItems = (totalItems) => ({
+    type: 'SET_TOTAL_ITEMS',
+    payload: totalItems,
 });

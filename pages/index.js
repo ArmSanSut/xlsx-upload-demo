@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { selectExcelData } from '../selectors/excelSelectors'; // Import your selector function
 import { selectpagination } from '../selectors/paginationSelectors';
-import { setSelectedCategory, setProductTotal } from '../actions/paginationActions';
-import  Router  from 'next/router';
+import { setSelectedCategory, setProductTotal, setTotalItems } from '../actions/paginationActions';
+import Router from 'next/router';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 export default function Home() {
@@ -31,10 +32,17 @@ export default function Home() {
 
   const handleState = (item) => {
     //handle state here while clicking the category
+
+    Router.push({
+      pathname: "/product",
+      query: { catname: item.name }
+    })
+    
     const categoryName = item.name
     const allProducts = item.products.length
     dispatch(setSelectedCategory(categoryName));
     dispatch(setProductTotal(Math.ceil(allProducts / 9)));
+    dispatch(setTotalItems(allProducts))
   };
   const postUrl = `/product/${selectedCategory}`;
 
@@ -44,13 +52,9 @@ export default function Home() {
       {excelData.catalogues.length != 0 ?
         <div>
           {excelData.catalogues.map((item) => (
-              <button key={item.name} onClick={() => 
-              Router.push({
-                        pathname:"/product",
-                        query:{catname:item.name}
-                      })}>
-                {item.name}
-              </button>
+            <button key={item.name} onClick={() => handleState(item)}>
+              {item.name}
+            </button>
           ))}
         </div> : null}
     </div>
